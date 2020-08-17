@@ -6,13 +6,15 @@ const del = require("del");
 const package = require("../package.json");
 
 // load all plugins in "devDependencies" into the variable $
-const $ = require("gulp-load-plugins")({
-    pattern: ["*"],
-    scope: ["devDependencies"],
+const $ = require('gulp-load-plugins')({
+    pattern: ['gulp-*', 'gulp.*'],
+    lazy: true,
+    camelize: true
 });
 
-const browserSync = require("browser-sync");
-const server = browserSync.create();
+console.log($);
+
+const server = require('browser-sync').create();
 
 const banner = [
     '/*!',
@@ -31,15 +33,15 @@ const onError = (err) => {
 
 const clean = (e) => {
     if (!paths.settings.clean) return e();
-    $.fancyLog("-> Clean")
-    return del([
+    console.log("-> Clean");
+    return $.del([
         "dist"
     ]);
 };
 
 const html = (e) => {
     if (!paths.settings.html) return e();
-    $.fancyLog("-> Compile HTML")
+    console.log("-> Compile HTML");
     return src(paths.source.html)
         .pipe($.plumber({ errorHandler: onError }))
         .pipe($.html())
@@ -48,7 +50,7 @@ const html = (e) => {
 
 const sass = (e) => {
     if (!paths.settings.css) return e();
-    $.fancyLog("-> Compile SASS")
+    console.log("-> Compile SASS");
     return src(paths.source.sass)
         .pipe($.plumber({ errorHandler: onError }))
         .pipe($.sourcemaps.init({ loadMaps: true }))
@@ -63,7 +65,7 @@ const sass = (e) => {
 
 const js = (e) => {
     if (!paths.settings.javascript) return e();
-    $.fancyLog("-> Transpiling Javascript");
+    console.log("-> Transpiling Javascript");
     return src(paths.source.js)
         .pipe($.plumber({ errorHandler: onError }))
         .pipe($.newer({ dest: paths.dist.js }))
@@ -79,7 +81,7 @@ const js = (e) => {
 
 const images = (e) => {
     if (!paths.settings.images) return e();
-    $.fancyLog("-> Compile Images");
+    console.log("-> Compile Images");
     return src(paths.source.images + "**/*.{png,jpg,jpeg,gif,svg}")
         .pipe($.newer({ dest: paths.dist.images }))
         .pipe($.plumber({ errorHandler: onError }))
@@ -114,7 +116,7 @@ const serve = (e) => {
 }
 
 exports.serve = serve;
-exports.clean = clean;
+// exports.clean = clean;
 exports.html = html;
 exports.sass = sass;
 exports.js = js;
