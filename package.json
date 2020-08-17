@@ -1,0 +1,23 @@
+{
+  "name": "gulp-boilerplate",
+  "version": "0.0.1",
+  "description": "Gulp boilerplate for frontend development",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RajeshKumarPadhy/Gulp-Boilerplate.git"
+  },
+  "keywords": [
+    "gulp",
+    "boilerplate"
+  ],
+  "author": "Rajesh Kumar Padhy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RajeshKumarPadhy/Gulp-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/RajeshKumarPadhy/Gulp-Boilerplate#readme"
+}
