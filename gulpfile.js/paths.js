@@ -11,14 +11,14 @@ module.exports = {
         html: "./dist/",
         css: "./dist/css/",
         js: "./dist/js/",
-        images: "./dist/img/",
+        images: "dist/img/",
         fonts: "./dist/fonts/"
     },
     settings: {
         html: true,
         css: true,
         javascript: true,
-        images: false,
+        images: true,
         fonts: false,
         clean: true
     }

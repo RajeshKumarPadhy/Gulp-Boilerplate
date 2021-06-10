@@ -34,7 +34,7 @@ const onError = (err) => {
 const clean = (e) => {
     if (!paths.settings.clean) return e();
     console.log("-> Clean");
-    return $.del([
+    return del([
         "dist"
     ]);
 };
@@ -44,7 +44,7 @@ const html = (e) => {
     console.log("-> Compile HTML");
     return src(paths.source.html)
         .pipe($.plumber({ errorHandler: onError }))
-        .pipe($.html())
+        // .pipe($.html())
         .pipe(dest(paths.dist.html));
 };
 
@@ -82,18 +82,9 @@ const js = (e) => {
 const images = (e) => {
     if (!paths.settings.images) return e();
     console.log("-> Compile Images");
-    return src(paths.source.images + "**/*.{png,jpg,jpeg,gif,svg}")
-        .pipe($.newer({ dest: paths.dist.images }))
+    return src(paths.source.images + ".{png,jpg,jpeg,gif,svg}")
         .pipe($.plumber({ errorHandler: onError }))
-        .pipe($.imagemin({
-            progressive: true,
-            interlaced: true,
-            optimizationLevel: 7,
-            svgoPlugins: [{ removeViewBox: false }],
-            verbose: true,
-            use: []
-        }))
-        .pipe(gulp.dest(paths.dist.images));
+        .pipe(dest(paths.dist.images));
 };
 
 
@@ -116,7 +107,7 @@ const serve = (e) => {
 }
 
 exports.serve = serve;
-// exports.clean = clean;
+exports.clean = clean;
 exports.html = html;
 exports.sass = sass;
 exports.js = js;
